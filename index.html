@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom GET Route Example</title>
+</head>
+<body>
+    <h1>Adventure Game</h1>
+    <button onclick="fetchAdventure()">Start Adventure</button>
+    <h2 id="title"></h2>
+    <p id="description"></p>
+    <ul id="options"></ul>
+    <script>
+        async function fetchAdventure() {
+            try {
+                const response = await fetch('/james');
+                const data = await response.json();
+                document.getElementById('title').textContent = data.name;
+                document.getElementById('description').textContent = data.school;
+                const optionsList = document.getElementById('options');
+                optionsList.innerHTML = '';
+                data.forEach(option => {
+                    const li = document.createElement('li');
+                    li.textContent = option;
+                    optionsList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error fetching adventure data:', error);
+            }
+        }
+    </script>
+</body>
+</html>
